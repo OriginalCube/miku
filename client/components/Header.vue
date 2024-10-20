@@ -19,9 +19,32 @@
 						<p class="w-40 overflow-hidden text-ellipsis whitespace-nowrap text-right text-lg font-bold text-primary">
 							{{ account.user.name }}
 						</p>
-						<p class="w-full text-right text-sm text-popover-foreground">{{ account.user.role ?? 'Employee' }}</p>
+						<p class="w-full text-right text-sm text-popover-foreground">
+							{{ account.user.role ?? 'Not yet verified' }}
+						</p>
 					</div>
 				</SheetHeader>
+				<SheetDescription>
+					<Label>Links:</Label>
+					<div class="flex flex-col gap-2">
+						<template v-if="account.user.role === 'Admin'">
+							<HeaderButton
+								v-for="link in adminLinks"
+								:key="link.label"
+								:icon="link.icon"
+								:label="link.label"
+								:to="link.to"
+							/>
+						</template>
+						<HeaderButton
+							v-for="link in navLinks"
+							:key="link.label"
+							:icon="link.icon"
+							:label="link.label"
+							:to="link.to"
+						/>
+					</div>
+				</SheetDescription>
 				<SheetFooter>
 					<Button variant="outline" @click="() => signOut(auth)">Sign Out</Button>
 				</SheetFooter>
@@ -34,4 +57,14 @@
 import { signOut } from '@firebase/auth'
 const auth = useFirebaseAuth()
 const account = useUserStore()
+
+const navLinks = [
+	{ icon: 'tabler:layout-dashboard', label: 'Dashboard', to: '/dashboard' },
+	{ icon: 'tabler:address-book', label: 'Trainings', to: '/trainings' },
+]
+
+const adminLinks = [
+	{ icon: 'tabler:users-group', label: 'Admin', to: '/admin' },
+	{ icon: 'tabler:user-cog', label: 'Employees', to: '/employees' },
+]
 </script>

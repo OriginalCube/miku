@@ -12,11 +12,18 @@ export default defineNuxtRouteMiddleware(async (to) => {
 			const getInfo = await getDoc<User>(userRef)
 			const userData = getInfo.data()
 			if (userData) {
-				useUserStore().setUser(userData)
+				useUserStore().setUser({
+					uid: userData.uid,
+					photoURL: userData.photoURL,
+					role: userData.role,
+					name: userData.name,
+					date: userData.date,
+					email: userData.email,
+				})
 			}
 		}
 
-		if (user.value?.role !== 'admin' && to.path === '/admin') return navigateTo('/')
+		// if (user.value?.role !== 'admin' && to.path === '/admin') return navigateTo('/')
 
 		// Redirect to dashboard if user is logged in
 		if (user.value && to.path === '/') {

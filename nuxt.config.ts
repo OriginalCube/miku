@@ -14,6 +14,7 @@ export default defineNuxtConfig({
 		'nuxt-vuefire',
 		'@pinia/nuxt',
 		'@nuxt/image',
+		'@nuxtjs/device',
 	],
 	// For easy configuration for Firebase
 	ssr: false,

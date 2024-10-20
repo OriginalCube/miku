@@ -23,8 +23,5 @@ export default () => {
 		}
 	}
 
-	const logUser = () => {
-		console.log('test')
-	}
-	return { saveUser, logUser }
+	return { saveUser }
 }
