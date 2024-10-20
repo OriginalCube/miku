@@ -12,9 +12,15 @@
 					<Icon name="tabler:menu-2" class="size-8" />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="right">
-				<SheetHeader>
-					{{ account.user }}
+			<SheetContent side="right" class="flex flex-col gap-2">
+				<SheetHeader class="mt-4 flex flex-row items-center justify-between">
+					<NuxtImg :src="account.user.photoURL" class="size-12 rounded-md border border-secondary" />
+					<div class="flex flex-col">
+						<p class="w-40 overflow-hidden text-ellipsis whitespace-nowrap text-right text-lg font-bold text-primary">
+							{{ account.user.name }}
+						</p>
+						<p class="w-full text-right text-sm text-popover-foreground">{{ account.user.role ?? 'Employee' }}</p>
+					</div>
 				</SheetHeader>
 				<SheetFooter>
 					<Button variant="outline" @click="() => signOut(auth)">Sign Out</Button>

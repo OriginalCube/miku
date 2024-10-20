@@ -16,6 +16,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
 			}
 		}
 
+		if (user.value?.role !== 'admin' && to.path === '/admin') return navigateTo('/')
+
 		// Redirect to dashboard if user is logged in
 		if (user.value && to.path === '/') {
 			return navigateTo('/dashboard')

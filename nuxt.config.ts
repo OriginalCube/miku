@@ -13,6 +13,7 @@ export default defineNuxtConfig({
 		'shadcn-nuxt',
 		'nuxt-vuefire',
 		'@pinia/nuxt',
+		'@nuxt/image',
 	],
 	// For easy configuration for Firebase
 	ssr: false,
