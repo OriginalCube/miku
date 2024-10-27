@@ -7,8 +7,9 @@ export interface Form {
 export interface Field {
 	name: string
 	label: string
-	type: 'textField'
+	type: 'textField' | 'textArea'
 	attr?: {
 		type?: string
 	}
+	rule: any
 }

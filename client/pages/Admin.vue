@@ -1,14 +1,5 @@
 <template>
 	<div class="flex flex-col gap-4 px-4">
-		<div class="flex justify-between gap-2 md:justify-start">
-			<Badge>
-				<span>Number of Trainings #0</span>
-			</Badge>
-
-			<Badge>
-				<span>Number of Employees #0</span>
-			</Badge>
-		</div>
 		<Card class="p-2">
 			<CardTitle class="flex items-center justify-between">
 				<span>Trainings</span>
@@ -22,6 +13,7 @@
 									{
 										title: 'Create Training',
 										fields,
+										schemaObj,
 									},
 									createTrainings,
 								)
@@ -44,6 +36,7 @@
 <script setup lang="ts">
 import type { Field } from '~~/types/Modal'
 import { collection, doc, setDoc } from '@firebase/firestore'
+import { z } from 'zod'
 
 const { setModal } = useModalStore()
 const createTrainings = async (input) => {
@@ -61,11 +54,17 @@ const fields: Field[] = [
 		name: 'name',
 		label: 'Name',
 		type: 'textField',
+		rule: {
+			name: z.string().min(1),
+		},
 	},
 	{
 		name: 'description',
 		label: 'Description',
 		type: 'textArea',
+		rule: {
+			description: z.string().min(1),
+		},
 	},
 	{
 		name: 'startDate',
@@ -73,6 +72,9 @@ const fields: Field[] = [
 		type: 'textField',
 		attr: {
 			type: 'date',
+		},
+		rule: {
+			startDate: z.string().min(1),
 		},
 	},
 	{
@@ -82,6 +84,9 @@ const fields: Field[] = [
 		attr: {
 			type: 'date',
 		},
+		rule: {
+			endDate: z.string().min(1),
+		},
 	},
 	{
 		name: 'max',
@@ -89,6 +94,17 @@ const fields: Field[] = [
 		type: 'textField',
 		attr: {
 			type: 'number',
+		},
+		rule: {
+			max: z.number().min(1),
+		},
+	},
+	{
+		name: 'link',
+		label: 'Training Link',
+		type: 'textField',
+		rule: {
+			link: z.string().min(1),
 		},
 	},
 ]
